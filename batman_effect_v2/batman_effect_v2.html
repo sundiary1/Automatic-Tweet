@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蝙蝠侠效应：意外事件如何激发善意</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0d0d0d;
+  display: flex;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  line-height: 1.8;
+  color: #e0e0e0;
+}
+
+main.phone {
+  width: 390px;
+  background: #0d0d0d;
+}
+
+.section {
+  padding: 36px 20px 40px;
+}
+
+/* ===== 封面区 ===== */
+.section.cover {
+  position: relative;
+  height: 500px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.cover-overlay {
+  position: relative;
+  z-index: 2;
+  padding: 40px 24px 48px;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.05) 100%);
+}
+
+.cover-badge {
+  display: inline-block;
+  background: #f0c040;
+  color: #0d0d0d;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.cover h1 {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.cover .subtitle {
+  font-size: 16px;
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.cover .tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cover .tag-row span {
+  background: rgba(255,255,255,0.12);
+  color: #f0c040;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(240,192,64,0.3);
+}
+
+/* ===== 问题引入区 ===== */
+.section.intro {
+  background: #1a1a2e;
+}
+
+.section.intro .section-kicker {
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section.intro h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 20px;
+  line-height: 1.3;
+}
+
+.section.intro p {
+  font-size: 15px;
+  color: #c8c8d0;
+  text-indent: 2em;
+  margin-bottom: 12px;
+}
+
+/* ===== 论文信息区 ===== */
+.section.paper {
+  background: #12121f;
+}
+
+.section.paper .section-kicker {
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section.paper h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 20px;
+  line-height: 1.3;
+}
+
+.info-card {
+  background: #1a1a2e;
+  border: 2px solid #2a2a3e;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.info-card .label {
+  font-size: 11px;
+  color: #f0c040;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.info-card .value {
+  font-size: 14px;
+  color: #d0d0d8;
+  line-height: 1.6;
+}
+
+.info-card .value.en {
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.info-row {
+  display: flex;
+  gap: 12px;
+}
+
+.info-row .info-card {
+  flex: 1;
+}
+
+/* ===== 研究设计总览区 ===== */
+.section.design {
+  background: #1a1a2e;
+}
+
+.section.design .section-kicker {
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section.design h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 20px;
+  line-height: 1.3;
+}
+
+.section.design p {
+  font-size: 15px;
+  color: #c8c8d0;
+  text-indent: 2em;
+  margin-bottom: 10px;
+}
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.flow-card {
+  background: #1e1e38;
+  border: 2px solid #2e2e4e;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.flow-card .step-badge {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: #f0c040;
+  color: #0d0d0d;
+  font-weight: 900;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-card h3 {
+  font-size: 17px;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.flow-card p {
+  font-size: 13px;
+  color: #aaa;
+  text-indent: 0;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.arrow-down {
+  text-align: center;
+  color: #f0c040;
+  font-size: 20px;
+  margin: 4px 0;
+}
+
+/* ===== 实验区 ===== */
+.section.experiment {
+  background: #12121f;
+  border-bottom: 2px solid #1e1e38;
+}
+
+.section.experiment .section-kicker {
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section.experiment h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 14px;
+  line-height: 1.3;
+}
+
+.section.experiment > p {
+  font-size: 15px;
+  color: #c8c8d0;
+  text-indent: 2em;
+  margin-bottom: 10px;
+}
+
+.highlight-box {
+  background: #1a1a2e;
+  border-left: 4px solid #f0c040;
+  border-radius: 0 12px 12px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+}
+
+.highlight-box p {
+  font-size: 14px;
+  color: #d0d0d8;
+  text-indent: 0;
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+.highlight-box strong {
+  color: #f0c040;
+}
+
+.condition-cards {
+  display: flex;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.condition-card {
+  flex: 1;
+  background: #1e1e38;
+  border: 2px solid #2e2e4e;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.condition-card.control {
+  border-color: #4a4a6a;
+}
+
+.condition-card.experimental {
+  border-color: #f0c040;
+}
+
+.condition-card .cond-emoji {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.condition-card .cond-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.condition-card .cond-name {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.condition-card .cond-desc {
+  font-size: 12px;
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.figure-card {
+  background: #1a1a2e;
+  border: 2px solid #2a2a3e;
+  border-radius: 20px;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.figure-card img {
+  width: 100%;
+  display: block;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.fig-title {
+  font-size: 15px;
+  color: #f0c040;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.fig-caption {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 8px;
+  line-height: 1.5;
+  text-indent: 0;
+}
+
+.fig-explain {
+  background: rgba(240,192,64,0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #c0c0d0;
+  line-height: 1.6;
+  text-indent: 0;
+}
+
+/* ===== 核心结果区 ===== */
+.section.result {
+  background: #1a1a2e;
+}
+
+.section.result .section-kicker {
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section.result h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 20px;
+  line-height: 1.3;
+}
+
+.result-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.result-card {
+  background: #1e1e38;
+  border: 2px solid #2e2e4e;
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.result-card .result-num {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #f0c040;
+  color: #0d0d0d;
+  font-weight: 900;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-card h3 {
+  font-size: 17px;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.result-card p {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.6;
+  text-indent: 0;
+  margin-bottom: 0;
+}
+
+.stat-badge {
+  display: inline-block;
+  background: rgba(240,192,64,0.12);
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+/* ===== 研究启示区 ===== */
+.section.insight {
+  background: #12121f;
+}
+
+.section.insight .section-kicker {
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section.insight h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 20px;
+  line-height: 1.3;
+}
+
+.insight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.insight-card {
+  background: #1a1a2e;
+  border: 2px solid #2a2a3e;
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.insight-card .insight-icon {
+  flex-shrink: 0;
+  font-size: 28px;
+}
+
+.insight-card h3 {
+  font-size: 17px;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.insight-card p {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.7;
+  text-indent: 0;
+  margin-bottom: 0;
+}
+
+/* ===== 总结区 ===== */
+.section.summary {
+  background: #1a1a2e;
+  border-bottom: none;
+}
+
+.section.summary .section-kicker {
+  color: #f0c040;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section.summary h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 20px;
+  line-height: 1.3;
+}
+
+.section.summary p {
+  font-size: 15px;
+  color: #c8c8d0;
+  text-indent: 2em;
+  margin-bottom: 10px;
+}
+
+.summary-highlight {
+  background: rgba(240,192,64,0.1);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-top: 16px;
+  font-size: 15px;
+  color: #f0c040;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-indent: 0;
+}
+</style>
+</head>
+<body>
+<main class="phone">
+
+<!-- 01 封面区 -->
+<section class="section cover">
+  <img src="assets/top.png" alt="封面背景图" style="width:100%;display:block;position:absolute;inset:0;object-fit:cover;">
+  <div class="cover-overlay">
+    <div class="cover-badge">心理学科普 / 论文解读</div>
+    <h1>当蝙蝠侠走进<br>拥挤的地铁</h1>
+    <p class="subtitle">一个意外出现的超级英雄，能不能让陌生人变得更善良？</p>
+    <div class="tag-row">
+      <span>亲社会行为</span>
+      <span>蝙蝠侠效应</span>
+      <span>正念觉醒</span>
+      <span>现场实验</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 问题引入区 -->
+<section class="section intro">
+  <span class="section-kicker">01 问题引入</span>
+  <h2>在地铁上，你会让座吗？</h2>
+
+  <p>我们都经历过这样的犹豫：地铁上来了一个孕妇，她站在你面前，你心里想着"要不要让"，然后看了一眼周围的人，看看有没有人先站起来。</p>
+
+  <p>让座是心理学上典型的"亲社会行为"，也就是自愿帮助他人、不求回报的举动。大多数人觉得这取决于一个人的教养或者当下的心情。但有没有可能，<strong style="color:#f0c040;">一个完全不相干的意外事件</strong>，也会悄悄改变我们的行为？</p>
+
+  <div class="highlight-box">
+    <p>一组意大利心理学家在米兰地铁上做了一个实验：如果车厢里突然出现一个<strong>穿着蝙蝠侠战衣的人</strong>，乘客会不会更愿意给孕妇让座？</p>
+  </div>
+
+  <p>结果出乎意料。这就是今天要聊的"蝙蝠侠效应"。</p>
+</section>
+
+<!-- 03 论文信息区 -->
+<section class="section paper">
+  <span class="section-kicker">02 论文信息</span>
+  <h2>这项研究</h2>
+
+  <div class="info-card">
+    <div class="label">论文标题</div>
+    <div class="value">意外事件与亲社会行为：蝙蝠侠效应</div>
+    <div class="value en">Unexpected events and prosocial behavior: the Batman effect</div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-card">
+      <div class="label">期刊</div>
+      <div class="value">npj Mental Health Research<br><span style="color:#888;font-size:12px;">Nature 子刊</span></div>
+    </div>
+    <div class="info-card">
+      <div class="label">年份</div>
+      <div class="value">2025</div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="label">作者 & 机构</div>
+    <div class="value">Francesco Pagnini 等 · 意大利米兰圣心天主教大学心理系</div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-card">
+      <div class="label">实验场景</div>
+      <div class="value" style="font-size:28px;text-align:center;margin-top:4px;">🚇</div>
+      <div class="value" style="text-align:center;font-size:13px;">米兰地铁系统</div>
+    </div>
+    <div class="info-card">
+      <div class="label">观察次数</div>
+      <div class="value" style="font-size:28px;text-align:center;font-weight:800;margin-top:4px;">138</div>
+      <div class="value" style="text-align:center;font-size:13px;">次乘车观察</div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="label">注册信息</div>
+    <div class="value" style="font-size:12px;color:#aaa;">ClinicalTrials.gov 预注册：NCT06481748（2024年7月1日）</div>
+  </div>
+</section>
+
+<!-- 04 研究设计总览区 -->
+<section class="section design">
+  <span class="section-kicker">03 研究设计</span>
+  <h2>实验是怎么做的</h2>
+
+  <p>研究者在米兰地铁上做了一个准实验，在真实车厢里观察乘客的反应。实验逻辑很直接：</p>
+
+  <div class="flow">
+    <div class="flow-card">
+      <div class="step-badge">1</div>
+      <div>
+        <h3>设定场景</h3>
+        <p>一位女实验员戴上假孕肚，扮演孕妇登上地铁。车厢座位全满，确保有人需要让座。</p>
+      </div>
+    </div>
+
+    <div class="arrow-down">↓</div>
+
+    <div class="flow-card">
+      <div class="step-badge">2</div>
+      <div>
+        <h3>引入意外</h3>
+        <p>实验条件下，另一位实验员穿上蝙蝠侠战衣（不戴面具），从约3米外的另一扇门进入同一车厢。两人不互动。</p>
+      </div>
+    </div>
+
+    <div class="arrow-down">↓</div>
+
+    <div class="flow-card">
+      <div class="step-badge">3</div>
+      <div>
+        <h3>记录结果</h3>
+        <p>隐藏的观察者记录是否有人让座，并对让座者进行简短访谈：为什么让座？看到蝙蝠侠了吗？</p>
+      </div>
+    </div>
+
+    <div class="arrow-down">↓</div>
+
+    <div class="flow-card">
+      <div class="step-badge">4</div>
+      <div>
+        <h3>对比两组</h3>
+        <p>两组同时进行（不同车厢），每站约2–4分钟后下车换乘。共完成138次有效观察。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 实验区 -->
+<section class="section experiment">
+  <span class="section-kicker">04 核心实验</span>
+  <h2>蝙蝠侠来了之后，<br>发生了什么？</h2>
+
+  <p>研究假设很简单：一个意外出现的超级英雄，会打破车厢里乘客的"日常走神模式"，让他们更注意周围环境，从而更可能让座。</p>
+
+  <p>实验对比了两种情境：</p>
+
+  <div class="condition-cards">
+    <div class="condition-card control">
+      <div class="cond-emoji">👩</div>
+      <div class="cond-label">对照组</div>
+      <div class="cond-name">只有孕妇</div>
+      <div class="cond-desc">"孕妇"独自上车<br>70次观察</div>
+    </div>
+    <div class="condition-card experimental">
+      <div class="cond-emoji">👩🦇</div>
+      <div class="cond-label">实验组</div>
+      <div class="cond-name">孕妇 + 蝙蝠侠</div>
+      <div class="cond-desc">孕妇上车后<br>蝙蝠侠从另一扇门进入<br>68次观察</div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-card">
+      <div class="step-badge" style="font-size:11px;">对象</div>
+      <div>
+        <h3>谁被观察了</h3>
+        <p>米兰地铁真实乘客。每次观察要求车厢座位全满、站立者不超过5人。让座者中女性约68%，平均年龄约41–42岁（由观察者估算）。</p>
+      </div>
+    </div>
+
+    <div class="flow-card">
+      <div class="step-badge" style="font-size:11px;">指标</div>
+      <div>
+        <h3>测量了什么</h3>
+        <p>主要指标：是否有人让座。次要指标：让座原因（识别怀孕、社会规范、其他）。实验组额外询问是否看到蝙蝠侠。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>伦理设计：</strong>蝙蝠侠扮演者不戴完整面具（上半脸露出），避免惊吓乘客。两者始终相距约3米且不互动。</p>
+  </div>
+
+  <!-- 图1 -->
+  <div class="figure-card">
+    <img src="assets/1.png" alt="实验场景示意：蝙蝠侠与孕妇站在拥挤地铁车厢中">
+    <div class="fig-title">图1：米兰地铁实验场景示意</div>
+    <p class="fig-caption">原论文 Fig. 1。此图为示例摆拍，展示蝙蝠侠与模拟怀孕的实验员在车厢中的场景。实际观察中两人保持约3米距离且无互动。</p>
+    <div class="fig-explain"><strong>读图重点：</strong>注意蝙蝠侠（无面具、有披风和标志）和孕妇在同一空间但互不接触。这就是"意外事件"的操作化定义：一个不具威胁性但足够打破日常惯例的视觉刺激。</div>
+  </div>
+</section>
+
+<!-- 06 核心结果区 -->
+<section class="section result">
+  <span class="section-kicker">05 核心发现</span>
+  <h2>看不见的蝙蝠侠，<br>看得见的让座率</h2>
+
+  <div class="result-grid">
+    <div class="result-card">
+      <div class="result-num">1</div>
+      <div>
+        <h3>让座率翻了近一倍</h3>
+        <p>对照组让座率 37.66%，实验组 <strong style="color:#f0c040;">67.21%</strong>。逻辑回归显著。</p>
+        <span class="stat-badge">OR = 3.393  p &lt; 0.001</span>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">2</div>
+      <div>
+        <h3>近半数让座者没看到蝙蝠侠</h3>
+        <p>实验组让座者中，<strong style="color:#f0c040;">43.75%</strong> 明确表示没看到蝙蝠侠。没有一个人把自己的让座归因于蝙蝠侠。</p>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">3</div>
+      <div>
+        <h3>让座理由几乎一样</h3>
+        <p>两组让座者的口头理由高度相似：约53%提到"看出是孕妇"，约28–30%提到社会规范或安全。蝙蝠侠没有改变人们说出来的原因。</p>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">4</div>
+      <div>
+        <h3>谁让座没变，让座概率变了</h3>
+        <p>两组中让座者女性均占约68%，平均年龄约41–42岁。蝙蝠侠没有改变让座者的人群特征，只是把整体概率拉高了。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 表1 -->
+  <div class="figure-card">
+    <img src="assets/2.png" alt="观察报告与访谈数据汇总表">
+    <div class="fig-title">表1：观察报告与访谈数据汇总</div>
+    <p class="fig-caption">原论文 Table 1。汇总两组条件下的观察次数、让座比例、访谈人数、性别与年龄分布、让座原因。</p>
+    <div class="fig-explain"><strong>读表重点：</strong>关注两个关键数字：实验组让座比例（60.29%）远高于对照组（41.42%）；"未看到蝙蝠侠"一栏（43.75%）是实验组独有的数据，暗示这种影响可能通过社会传播实现，不必每个人都直接感知到意外事件。</div>
+  </div>
+</section>
+
+<!-- 07 研究启示区 -->
+<section class="section insight">
+  <span class="section-kicker">06 这意味着什么</span>
+  <h2>几个值得注意的启发</h2>
+
+  <div class="insight-list">
+    <div class="insight-card">
+      <div class="insight-icon">🔍</div>
+      <div>
+        <h3>打破"自动驾驶"可能是关键</h3>
+        <p>研究者认为，意外事件中断了日常行为惯性和自动走神。当你不刷手机、不发呆的时候，你更可能注意到身边有人需要帮助。</p>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-icon">🔄</div>
+      <div>
+        <h3>善意可以在车厢里传播</h3>
+        <p>43.75%的让座者没看到蝙蝠侠却让了座。一个可能的解释是"社会传染"：少数人被意外唤醒后，他们的行为变化影响了周围更多人，形成连锁反应。</p>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-icon">🏙️</div>
+      <div>
+        <h3>公共空间加点"意外"元素</h3>
+        <p>想让城市更友善，不一定需要更多标语和口号。一面涂鸦墙、一段即兴音乐、一个有设计感的公共装置，也许就能悄悄改变人们的行为倾向。</p>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-icon">⚠️</div>
+      <div>
+        <h3>别急着下结论</h3>
+        <p>研究者也坦承：蝙蝠侠的文化象征（英雄、正义）可能启动了联想，不一定非得是"意外感"在起作用。未来需要测试中性的意外刺激，比如穿奇怪外套的普通人，看看效果是否一样。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 总结区 -->
+<section class="section summary">
+  <span class="section-kicker">07 总结</span>
+  <h2>写在最后</h2>
+
+  <p>这项米兰地铁实验用一个巧妙的设计说明了一件事：<strong style="color:#f0c040;">亲社会行为不一定来自深思熟虑，它可能只是某个意外事件带来的注意力唤醒。</strong></p>
+
+  <p>日常通勤中，我们大多处在半自动的"省电模式"里。一个不具威胁的意外刺激，比如车厢里出现一个蝙蝠侠，能让注意力短暂回到当下，让你重新看见身边的人。</p>
+
+  <p>当然，这只是一项研究，不是定论。但它的方向值得思考：</p>
+
+  <div class="summary-highlight">
+    激发善意，有时不需要说教和道理。<br>一个恰到好处的"意外"，也许就够了。
+  </div>
+  <p> </p>
+  <p>本内容基于相关文献产出，由AI辅助生成。请合理看待研究结论，勿作过度解读或超出本意的延伸。</p>
+</section>
+
+</main>
+</body>
+</html>

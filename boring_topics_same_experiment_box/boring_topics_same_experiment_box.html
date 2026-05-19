@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>无聊的话题，真的会聊得无聊吗？</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111827;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      color: #111827;
+    }
+    .phone {
+      width: 390px;
+      margin: 0 auto;
+      padding: 18px 0 28px;
+      background:
+        radial-gradient(circle at 12% 3%, rgba(255, 232, 74, .42) 0 70px, transparent 72px),
+        radial-gradient(circle at 92% 12%, rgba(0, 212, 255, .36) 0 66px, transparent 68px),
+        linear-gradient(180deg, #3b0764 0%, #6d28d9 22%, #f6f0ff 45%, #fff7ed 100%);
+    }
+    .section {
+      width: auto;
+      margin: 0 14px 20px;
+      padding: 22px 18px;
+      border: 3px solid #111827;
+      border-radius: 26px;
+      box-shadow: 6px 6px 0 #111827;
+      background: #ffffff;
+      position: relative;
+    }
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 25px;
+      line-height: 1.18;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+    }
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 5px 10px;
+      border: 2px solid #111827;
+      border-radius: 999px;
+      background: #ffe84a;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+    p { margin: 0 0 10px; font-size: 15px; line-height: 1.78; font-weight: 500; }
+    .small { font-size: 12px; line-height: 1.65; color: #4b5563; }
+    .cover {
+      min-height: 560px;
+      padding: 30px 18px 26px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255, 232, 74, .98) 0 58px, transparent 60px),
+        radial-gradient(circle at 86% 16%, rgba(0, 212, 255, .95) 0 48px, transparent 50px),
+        radial-gradient(circle at 84% 78%, rgba(255, 77, 166, .95) 0 66px, transparent 68px),
+        linear-gradient(150deg, #7c3aed 0%, #4c1d95 50%, #111827 100%);
+      color: #ffffff;
+    }
+    .cover-badge {
+      display: inline-block;
+      padding: 7px 12px;
+      border: 2px solid #111827;
+      border-radius: 999px;
+      background: #ffe84a;
+      color: #111827;
+      font-size: 13px;
+      font-weight: 900;
+      transform: rotate(-2deg);
+    }
+    .cover h1 {
+      margin: 42px 0 14px;
+      font-size: 40px;
+      line-height: 1.05;
+      font-weight: 1000;
+      letter-spacing: -2px;
+      text-shadow: 3px 3px 0 #111827;
+    }
+    .cover .subtitle {
+      width: 92%;
+      margin: 0 0 24px;
+      font-size: 16px;
+      line-height: 1.75;
+      color: #fef3c7;
+      font-weight: 700;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .tag {
+      padding: 7px 10px;
+      border: 2px solid #111827;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #111827;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 3px 3px 0 #111827;
+    }
+    .cover-card {
+      margin-top: 38px;
+      padding: 15px;
+      border: 3px solid #111827;
+      border-radius: 22px;
+      background: #ffffff;
+      color: #111827;
+      box-shadow: 5px 5px 0 #ffe84a;
+    }
+    .cover-card .big-number { font-size: 42px; line-height: 1; font-weight: 1000; letter-spacing: -1px; }
+    .cover-card .note { margin-top: 6px; font-size: 13px; line-height: 1.55; font-weight: 800; }
+    .sticker {
+      display: inline-block;
+      padding: 5px 9px;
+      border: 2px solid #111827;
+      border-radius: 12px;
+      background: #ff4da6;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 3px 3px 0 #111827;
+      transform: rotate(2deg);
+    }
+    .intro { background: #fff7ed; }
+    .quote-box {
+      margin-top: 14px;
+      padding: 15px;
+      border: 2px solid #111827;
+      border-radius: 20px;
+      background: #dbeafe;
+      font-size: 15px;
+      line-height: 1.75;
+      font-weight: 800;
+    }
+    .paper { background: #ecfeff; }
+    .paper-title {
+      padding: 15px;
+      border: 2px solid #111827;
+      border-radius: 20px;
+      background: #111827;
+      color: #ffffff;
+      box-shadow: 4px 4px 0 #00d4ff;
+    }
+    .paper-title .en { margin-bottom: 8px; font-size: 16px; line-height: 1.45; font-weight: 900; }
+    .paper-title .cn { font-size: 13px; line-height: 1.6; color: #bae6fd; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+    .info-card { padding: 12px; border: 2px solid #111827; border-radius: 18px; background: #ffffff; }
+    .info-card b { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 900; }
+    .info-card span { font-size: 12px; line-height: 1.55; color: #374151; font-weight: 600; }
+    .design { background: #fef9c3; }
+    .flow { display: grid; gap: 10px; margin-top: 10px; }
+    .flow-card { padding: 13px 13px 13px 14px; border: 2px solid #111827; border-radius: 18px; background: #ffffff; box-shadow: 3px 3px 0 #111827; }
+    .flow-card .step { display: inline-block; margin-bottom: 6px; padding: 3px 8px; border-radius: 999px; background: #7c3aed; color: #ffffff; font-size: 11px; font-weight: 900; }
+    .flow-card h3 { margin: 0 0 5px; font-size: 16px; line-height: 1.35; font-weight: 900; }
+    .flow-card p { margin: 0; font-size: 13px; line-height: 1.7; color: #374151; }
+    .result { background: #ffffff; }
+    .data-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 14px 0 4px; }
+    .data-pill { padding: 10px 6px; border: 2px solid #111827; border-radius: 18px; text-align: center; background: #ff4da6; color: #ffffff; box-shadow: 3px 3px 0 #111827; }
+    .data-pill b { display: block; font-size: 22px; line-height: 1; font-weight: 1000; }
+    .data-pill span { display: block; margin-top: 5px; font-size: 11px; line-height: 1.35; font-weight: 800; }
+    .result-card { margin-top: 12px; padding: 14px; border: 2px solid #111827; border-radius: 20px; background: #f3e8ff; box-shadow: 4px 4px 0 #111827; }
+    .result-card:nth-of-type(2n) { background: #dcfce7; }
+    .result-card h3 { margin: 0 0 7px; font-size: 17px; line-height: 1.35; font-weight: 900; }
+    .result-card p { margin: 0; font-size: 13px; line-height: 1.75; }
+    .num { display: inline-flex; width: 28px; height: 28px; margin-right: 6px; align-items: center; justify-content: center; border: 2px solid #111827; border-radius: 50%; background: #ffe84a; font-size: 14px; font-weight: 1000; }
+    .highlight { padding: 2px 5px; border-radius: 8px; background: #ffe84a; font-weight: 900; }
+    .figures { background: #f8fafc; }
+    .figure-card { padding: 12px; border: 2px solid #111827; border-radius: 22px; background: #ffffff; box-shadow: 4px 4px 0 #111827; }
+    .experiment-figure { margin-top: 14px; }
+    .experiment-figure .fig-label { display: inline-block; margin-bottom: 8px; padding: 4px 9px; border: 2px solid #111827; border-radius: 999px; background: #00d4ff; font-size: 11px; font-weight: 900; }
+    .figure-image { min-height: 190px; padding: 8px; border: 2px dashed #94a3b8; border-radius: 18px; background: linear-gradient(45deg, #f8fafc 25%, #eef2ff 25%, #eef2ff 50%, #f8fafc 50%, #f8fafc 75%, #eef2ff 75%); background-size: 22px 22px; }
+    .figure-image img { width: 100%; height: auto; display: block; border-radius: 12px; background: #ffffff; }
+    .fig-title { margin: 12px 0 5px; font-size: 16px; line-height: 1.4; font-weight: 900; }
+    .fig-caption { margin: 0 0 8px; font-size: 11px; line-height: 1.65; color: #6b7280; font-weight: 700; }
+    .fig-explain { padding: 11px; border-radius: 16px; background: #ecfeff; font-size: 13px; line-height: 1.7; font-weight: 700; }
+    .insight { background: #ede9fe; }
+    .insight-card { margin-top: 10px; padding: 14px; border: 2px solid #111827; border-radius: 20px; background: #ffffff; }
+    .insight-card b { display: block; margin-bottom: 5px; font-size: 15px; font-weight: 900; }
+    .insight-card p { margin: 0; font-size: 13px; line-height: 1.7; }
+    .gold-line { margin-top: 14px; padding: 16px; border: 3px solid #111827; border-radius: 22px; background: #ffe84a; font-size: 18px; line-height: 1.55; font-weight: 1000; box-shadow: 4px 4px 0 #111827; }
+    .summary { background: radial-gradient(circle at 10% 10%, rgba(255, 232, 74, .9) 0 42px, transparent 44px), linear-gradient(145deg, #111827 0%, #4c1d95 100%); color: #ffffff; }
+    .summary .section-kicker { background: #00d4ff; color: #111827; }
+    .summary p { color: #f8fafc; font-weight: 700; }
+    .summary-list { margin-top: 14px; display: grid; gap: 10px; }
+    .summary-item { padding: 12px; border: 2px solid #ffffff; border-radius: 18px; background: rgba(255,255,255,.12); font-size: 14px; line-height: 1.65; font-weight: 800; }
+    .footer-note { margin-top: 18px; font-size: 11px; line-height: 1.6; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <section class="section cover">
+      <div class="cover-badge">心理学科普 · JPSP 2026</div>
+      <h1>无聊的话题，真的会聊得无聊吗？</h1>
+      <p class="subtitle">一项新研究发现：我们可能低估了“普通对话”带来的投入感、愉悦感和连接感。</p>
+      <div class="tag-row"><span class="tag">💬 对话</span><span class="tag">😐 无聊感</span><span class="tag">🧠 预测偏差</span><span class="tag">⚡ 投入感</span></div>
+      <div class="cover-card"><div class="big-number">9项</div><div class="note">预注册实验显示：人们反复低估了“无聊话题”实际聊起来的有趣程度。</div></div>
+      <p style="margin-top:24px;"><span class="sticker">核心反转</span></p>
+      <p style="font-size:14px;line-height:1.75;color:#fef3c7;font-weight:800;">让对话变有趣的，不只有话题本身，还有实时回应、倾听、接话和共同推进的过程。</p>
+    </section>
+
+    <section class="section intro">
+      <span class="section-kicker">01  问题引入</span>
+      <h2 class="section-title">我们常常把“话题无聊”误判成“对话无聊”</h2>
+      <p>你是不是也有过这种感觉：别人一提到运动、天气、通勤、健身、社交媒体趋势，第一反应就是“这有什么好聊的？”</p>
+      <p>但真正聊起来之后，情况可能并不一样。你需要回应对方，捕捉对方的语气，顺着话题补充自己的经验，也可能被一个细节带进新的思考。</p>
+      <div class="quote-box">这项研究想问的不是“无聊话题会不会比有趣话题更好”，而是：<br><span class="highlight">我们是否系统性低估了无聊话题的实际对话体验？</span></div>
+    </section>
+
+    <section class="section paper">
+      <span class="section-kicker">02  论文信息</span>
+      <h2 class="section-title">这篇论文研究了什么？</h2>
+      <div class="paper-title"><div class="en">Conversations About Boring Topics Are More Interesting Than We Think</div><div class="cn">中文可译为：关于无聊话题的对话，比我们想象得更有趣。</div></div>
+      <div class="info-grid">
+        <div class="info-card"><b>作者</b><span>Elizabeth N. Trinh<br>Nicole Thio<br>Nadav Klein</span></div>
+        <div class="info-card"><b>期刊</b><span>Journal of Personality and Social Psychology</span></div>
+        <div class="info-card"><b>年份</b><span>2026<br>Vol. 130, No. 6</span></div>
+        <div class="info-card"><b>样本</b><span>9项预注册实验<br>总 N = 1,800</span></div>
+      </div>
+      <p class="small" style="margin-top:14px;">研究核心：比较人们在对话前的预测，与真实对话后的实际体验是否一致。</p>
+    </section>
+
+    <section class="section design">
+      <span class="section-kicker">03  研究设计总览</span>
+      <h2 class="section-title">这组研究的基本逻辑：先预测，再真的聊</h2>
+      <p>这篇论文最清楚的地方在于，它不是只问参与者“你觉得无聊话题会不会无聊”，而是让他们真正进入对话情境。</p>
+      <div class="flow">
+        <div class="flow-card"><span class="step">Step 1</span><h3>先判断话题兴趣</h3><p>参与者先对一系列话题打分，例如运动、电影、社交媒体、人工智能、旅行、历史、环境保护等。</p></div>
+        <div class="flow-card"><span class="step">Step 2</span><h3>根据兴趣分配话题</h3><p>研究者把某个话题安排成“对我有趣”或“对我无聊”的对话主题，并操纵对话对象、话题匹配方式和互动方式。</p></div>
+        <div class="flow-card"><span class="step">Step 3</span><h3>对话前做预测</h3><p>参与者先预测：这段对话会有多有趣、多愉快，以及自己之后还想不想继续聊这个话题。</p></div>
+        <div class="flow-card"><span class="step">Step 4</span><h3>真实对话后再评价</h3><p>完成 2–5 分钟真实对话，或阅读/观看相同对话内容后，再报告实际体验。研究重点就是“预测值”和“实际值”的差距。</p></div>
+      </div>
+    </section>
+
+    <section class="section design">
+      <span class="section-kicker">04  实验1</span>
+      <h2 class="section-title">一个人觉得无聊，另一个人觉得有趣：还会低估吗？</h2>
+      <div class="flow">
+        <div class="flow-card"><span class="step">对象</span><h3>100名法国大学实验室参与者</h3><p>参与者两两配对，通过 Zoom 进行面对面对话。</p></div>
+        <div class="flow-card"><span class="step">做法</span><h3>同一个话题，对两个人意义不同</h3><p>研究者先让每个人评价10个话题的兴趣程度。随后选择一个话题：对其中一人非常有趣，对另一人很无聊。</p></div>
+        <div class="flow-card"><span class="step">任务</span><h3>先预测，后对话5分钟</h3><p>对话前，参与者预测兴趣、愉悦和再次对话意愿；对话后，用同样指标评价真实体验。</p></div>
+        <div class="flow-card"><span class="step">发现</span><h3>无聊话题组低估最明显</h3><p>认为话题无聊的人，在兴趣、愉悦和再次对话意愿上都明显低估了实际体验；而有趣话题组的预测相对更准确。</p></div>
+      </div>
+      <div class="experiment-figure">
+        <span class="fig-label">图1｜实验1结果</span>
+        <div class="figure-card">
+        <div class="figure-image">
+          <img src="assets/figure1_experiment1_page1170.png" alt="原论文 Figure 1：实验1中无聊话题与有趣话题的预测和实际体验比较">
+        </div>
+        <div class="fig-title">无聊话题组：实际体验明显高于预测</div>
+        <p class="fig-caption">原论文 Fig. 1，位于论文第1170页。图中比较了无聊话题与有趣话题在兴趣、愉悦感、再次对话意愿上的预测值与实际值。</p>
+        <div class="fig-explain">读图重点：在无聊话题条件下，白色柱子“After actual”明显高于黑色柱子“Before prediction”；而有趣话题条件下，预测和实际更接近。</div>
+      </div>
+      </div>
+    </section>
+
+    <section class="section design">
+      <span class="section-kicker">05  实验2</span>
+      <h2 class="section-title">如果两个人都觉得话题无聊呢？</h2>
+      <p>实验1可能有一个疑问：是不是因为有一方很感兴趣，所以把另一个人也带动起来了？实验2专门排除了这个解释。</p>
+      <div class="flow">
+        <div class="flow-card"><span class="step">对象</span><h3>190名参与者，组成对话配对</h3><p>研究继续采用 Zoom 对话，并比较不同类型的配对。</p></div>
+        <div class="flow-card"><span class="step">条件</span><h3>两类对话组合</h3><p>一类是“无聊—无聊”：双方都觉得这个话题无聊；另一类是“无聊—有趣”：一方无聊，一方有趣。</p></div>
+        <div class="flow-card"><span class="step">结果</span><h3>双方都无聊，也还是比预期好</h3><p>即使两个人都觉得话题无聊，他们真实对话后的兴趣和愉悦感仍高于对话前预测。</p></div>
+        <div class="flow-card"><span class="step">含义</span><h3>不是“有人带热话题”这么简单</h3><p>有一方感兴趣确实会让对话更好，但无聊话题的低估效应并不依赖于这个条件。</p></div>
+      </div>
+    </section>
+
+    <section class="section design">
+      <span class="section-kicker">06  实验3</span>
+      <h2 class="section-title">朋友之间会不会预测得更准？</h2>
+      <p>如果是朋友，我们通常更了解对方，也更熟悉彼此的聊天风格。实验3把研究从实验室带到真实校园场景。</p>
+      <div class="flow">
+        <div class="flow-card"><span class="step">对象</span><h3>326名美国大学校园参与者</h3><p>研究人员在校园开放空间中招募朋友配对和陌生人配对。</p></div>
+        <div class="flow-card"><span class="step">话题</span><h3>由参与者自己提出</h3><p>每个人提出一个“自己觉得有趣，但可能会让对方无聊”的话题。每对参与者会分别聊双方提出的两个话题。</p></div>
+        <div class="flow-card"><span class="step">对话</span><h3>每个话题聊2分钟</h3><p>对话前先预测，对话后再评价，指标仍然是兴趣、愉悦和再次对话意愿。</p></div>
+        <div class="flow-card"><span class="step">发现</span><h3>朋友和陌生人都会低估</h3><p>朋友并没有完全避免这种预测偏差。即使了解对方，人们仍会低估无聊话题实际聊起来的体验。</p></div>
+      </div>
+    </section>
+
+    <section class="section design">
+      <span class="section-kicker">07  实验4</span>
+      <h2 class="section-title">关键不是内容本身，而是你有没有参与进去</h2>
+      <p>实验4开始检验机制：让对话变得比预期更有趣的，是否是“互动投入感”？</p>
+      <div class="flow">
+        <div class="flow-card"><span class="step">对象</span><h3>300名新加坡成年参与者</h3><p>每个条件最终保留100名参与者，样本包括较多工作成年人。</p></div>
+        <div class="flow-card"><span class="step">三种条件</span><h3>同样内容，不同参与程度</h3><p>第一组亲自进行实时对话；第二组阅读这段对话的文字稿；第三组观看这段对话的录像。</p></div>
+        <div class="flow-card"><span class="step">设计重点</span><h3>把“内容”和“互动”拆开</h3><p>阅读和观看条件接触的是同一段对话内容，但不需要实时回应、倾听和调整自己的表达。</p></div>
+        <div class="flow-card"><span class="step">发现</span><h3>低估主要出现在实时对话中</h3><p>只有亲自参与对话时，无聊话题才明显比预期更有趣、更愉快。阅读或观看相同内容时，这种提升不明显，甚至可能被高估。</p></div>
+      </div>
+      <div class="experiment-figure">
+        <span class="fig-label">图4｜实验4结果</span>
+        <div class="figure-card">
+        <div class="figure-image">
+          <img src="assets/figure4_engagement_page1178.png" alt="原论文 Figure 4：实验4中实时对话、阅读文字稿和观看录像条件的比较">
+        </div>
+        <div class="fig-title">同样的对话内容，亲自参与才最关键</div>
+        <p class="fig-caption">原论文 Fig. 4，位于论文第1178页。实验4比较三种条件：Live Conversations、Reading Transcripts、Observing Conversations。</p>
+        <div class="fig-explain">读图重点：无聊话题的“低估效应”主要出现在实时对话条件中。只读文字稿或看录像时，参与者没有真正进入互动，因此体验提升不一样。</div>
+      </div>
+      </div>
+    </section>
+
+    <section class="section design">
+      <span class="section-kicker">08  实验5</span>
+      <h2 class="section-title">是不是因为话题聊着聊着跑偏了？</h2>
+      <p>还有一种可能：无聊话题并没有真的变有趣，只是两个人后来把话题转走了。实验5专门检验这个解释。</p>
+      <div class="flow">
+        <div class="flow-card"><span class="step">操纵</span><h3>固定话题 vs 自然演变</h3><p>一部分参与者被要求尽量停留在指定话题上，另一部分可以让话题像真实聊天一样自然发展。</p></div>
+        <div class="flow-card"><span class="step">测量</span><h3>同时测投入感和话题评价</h3><p>研究者不仅看预测和实际体验差距，也测量参与者实际有多投入，以及他们事后是否把话题评价得更积极。</p></div>
+        <div class="flow-card"><span class="step">中介检验</span><h3>谁解释了预测—体验差距？</h3><p>结果显示，投入感能更稳定地解释“实际体验比预测更好”；话题变得更积极也有作用，但解释力较小。</p></div>
+        <div class="flow-card"><span class="step">结论</span><h3>不是单纯因为话题变了</h3><p>即使要求参与者停留在原本的无聊话题上，他们依然低估了对话体验。真正关键的是实时互动带来的投入。</p></div>
+      </div>
+      <div class="experiment-figure">
+        <span class="fig-label">图5｜实验5结果</span>
+        <div class="figure-card">
+        <div class="figure-image">
+          <img src="assets/figure5_topic_change_page1181.png" alt="原论文 Figure 5：实验5中话题不变条件和控制条件的比较">
+        </div>
+        <div class="fig-title">不是因为“聊着聊着换了话题”</div>
+        <p class="fig-caption">原论文 Fig. 5，位于论文第1181页。实验5比较 No-topic-change condition 和 Control condition。</p>
+        <div class="fig-explain">读图重点：即使要求参与者尽量停留在原来的话题上，无聊话题的实际体验仍高于预测。这说明效果不能简单解释为“后来换了更有趣的话题”。</div>
+      </div>
+      </div>
+
+
+      <div class="experiment-figure">
+        <span class="fig-label">图6｜实验5机制</span>
+        <div class="figure-card">
+        <div class="figure-image">
+          <img src="assets/figure6_mediation_page1183.png" alt="原论文 Figure 6：实验5中投入感和话题评价的中介效应">
+        </div>
+        <div class="fig-title">投入感比“话题变有趣”更能解释结果</div>
+        <p class="fig-caption">原论文 Fig. 6，位于论文第1183页。该图展示 engagement 和 topic construal 对兴趣、愉悦感、再次对话意愿差距的中介效应。</p>
+        <div class="fig-explain">读图重点：engagement 对兴趣差距和愉悦差距的路径更强、更稳定；再次对话意愿也主要由 engagement 解释。</div>
+      </div>
+      </div>
+    </section>
+
+    <section class="section result">
+      <span class="section-kicker">09  核心结果</span>
+      <h2 class="section-title">人们确实低估了无聊话题的“可聊性”</h2>
+      <div class="data-strip"><div class="data-pill"><b>5</b><span>主文实验</span></div><div class="data-pill"><b>4</b><span>补充实验</span></div><div class="data-pill"><b>1800</b><span>总样本量</span></div></div>
+      <div class="result-card"><h3><span class="num">1</span>无聊话题，实际聊起来更有趣</h3><p>实验1中，觉得话题无聊的参与者明显低估了实际对话的兴趣和愉悦感。也就是说，预测时觉得“不想聊”，聊完后却发现“还不错”。</p></div>
+      <div class="result-card"><h3><span class="num">2</span>不是因为对方很感兴趣</h3><p>实验2发现，即使双方都觉得话题无聊，实际对话仍然比预期更有趣、更愉快。这说明效果不完全依赖于“有一个人把话题带热”。</p></div>
+    </section>
+
+    <section class="section result">
+      <span class="section-kicker">10  进一步发现</span>
+      <h2 class="section-title">朋友和陌生人，都会出现这种预测偏差</h2>
+      <div class="result-card"><h3><span class="num">3</span>熟人也会低估无聊话题</h3><p>实验3把朋友和陌生人都纳入研究。结果显示，无论对方是熟人还是陌生人，人们都会低估无聊话题带来的兴趣、享受和再次对话意愿。</p></div>
+      <div class="result-card"><h3><span class="num">4</span>关键机制是“投入感”</h3><p>实验4和实验5进一步说明：人们预测时容易盯着话题本身，但真实对话中，回应、倾听和实时互动会带来更高的心理投入感。</p></div>
+      <div class="quote-box" style="background:#fef3c7;">研究者提出一个解释：<br><span class="highlight">话题是静态线索，容易提前判断；投入感是动态过程，只有聊起来才会出现。</span></div>
+    </section>
+
+    <section class="section insight">
+      <span class="section-kicker">11  研究启示</span>
+      <h2 class="section-title">这项研究并不是劝你接受所有尬聊</h2>
+      <div class="insight-card"><b>启示一：不要只用话题判断一段对话值不值得开始</b><p>话题确实重要，但它不是全部。很多时候，对话的价值来自对方如何回应、你如何接住，以及互动如何展开。</p></div>
+      <div class="insight-card"><b>启示二：社交回避可能部分来自错误预测</b><p>如果我们过度相信“这个话题一定很无聊”，就可能提前避开一些实际上还不错的交流机会。</p></div>
+      <div class="gold-line">对话的价值，不只藏在话题里，也藏在回应、倾听和共同推进的过程里。</div>
+    </section>
+
+    <section class="section summary">
+      <span class="section-kicker">12  总结</span>
+      <h2 class="section-title">无聊的，可能不是话题，而是我们对它的预判</h2>
+      <p>这篇研究通过多项预注册实验发现，人们会系统性低估无聊话题对话的兴趣、愉悦感和再次对话意愿。</p>
+      <p>这种低估并不只发生在陌生人之间，也发生在朋友之间；也不完全依赖于有一方特别感兴趣。</p>
+      <div class="summary-list"><div class="summary-item">预测时，我们更容易看到“话题无聊”。</div><div class="summary-item">体验时，我们会进入“实时互动”。</div><div class="summary-item">真正让对话变得可聊的，常常是投入、回应和共同参与。</div></div>
+      <div class="footer-note">注：本文为论文科普改写，避免将实验结果过度推广为“所有无聊对话都有益”。</div>
+    </section>
+  </main>
+</body>
+</html>

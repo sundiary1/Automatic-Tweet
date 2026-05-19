@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import fitz; print\\('PyMuPDF available'\\)\")",
+      "Bash(python3 -c \"from pdf2image import convert_from_path; print\\('pdf2image available'\\)\")",
+      "Bash(pip list *)",
+      "Bash(python3 -c \"import PIL; print\\('Pillow available'\\)\")",
+      "Bash(pip install *)",
+      "Bash(python3 *)",
+      "Bash(python3 -c \"import PyPDF2; print\\('PyPDF2 available'\\)\")",
+      "Bash(python3 -c \"import pymupdf; print\\('pymupdf available'\\)\")",
+      "Bash(python3 -c \"import pdfplumber; print\\('pdfplumber available'\\)\")",
+      "Bash(python -c \"import PyPDF2; print\\('PyPDF2 available'\\)\")",
+      "Bash(python -c \"import pdfplumber; print\\('pdfplumber available'\\)\")",
+      "Bash(python -c \"import fitz; print\\('pymupdf available'\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(npx skills *)",
+      "Bash(git -C \"c:/Users/26936/Desktop/公众号/自动推文项目\" log --oneline -10)"
+    ]
+  }
+}

@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 // 改成你的 HTML 文件名
-const htmlFile = "wechat_long_image_network_paper_dark_cartoon_no_brain.html";
+const htmlFile = "batman_effect\\batman_effect_v2.html";
 
 async function main() {
   const htmlPath = path.resolve(__dirname, htmlFile);
@@ -84,10 +84,13 @@ async function main() {
       continue;
     }
 
-    const padding = 12;
+    // 左右留白、上方只留 2px（避免捕获上方模块的分割线）、下方多留白保证呼吸感
+    const padX = 12;
+    const padTop = -1;
+    const padBottom = 20;
 
     // 如果当前模块太高，就临时增大视口高度
-    const neededHeight = Math.ceil(box.height + padding * 2 + 80);
+    const neededHeight = Math.ceil(box.height + padTop + padBottom + 80);
     const currentViewport = page.viewportSize();
 
     if (currentViewport && neededHeight > currentViewport.height) {
@@ -107,10 +110,10 @@ async function main() {
     }
 
     const clip = {
-      x: Math.max(Math.floor(box.x - padding), 0),
-      y: Math.max(Math.floor(box.y - padding), 0),
-      width: Math.ceil(Math.min(box.width + padding * 2, 390)),
-      height: Math.ceil(box.height + padding * 2)
+      x: Math.max(Math.floor(box.x - padX), 0),
+      y: Math.max(Math.floor(box.y - padTop), 0),
+      width: Math.ceil(Math.min(box.width + padX * 2, 390)),
+      height: Math.ceil(box.height + padTop + padBottom)
     };
 
     const outputPath = path.join(
