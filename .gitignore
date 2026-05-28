@@ -1,0 +1,4 @@
+projects/
+node_modules/
+.Rhistory
+*.log

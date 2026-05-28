@@ -2,56 +2,41 @@ const { chromium } = require("playwright");
 const path = require("path");
 const fs = require("fs");
 
-// 改成你的 HTML 文件名
-const htmlFile = "batman_effect\\batman_effect_v2.html";
-
-async function main() {
-  const htmlPath = path.resolve(__dirname, htmlFile);
+async function exportSections({
+  inputPath,
+  outputDir,
+  width = 390,
+  scale = 3,
+  background = "#fff7e8"
+}) {
+  const htmlPath = path.resolve(inputPath);
   const fileUrl = "file://" + htmlPath;
 
   if (!fs.existsSync(htmlPath)) {
     throw new Error(`找不到 HTML 文件：${htmlPath}`);
   }
 
-  // 用 HTML 文件名创建输出文件夹
-  const htmlBaseName = path.parse(htmlFile).name;
-  const outputDir = path.join(__dirname, htmlBaseName);
-
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  const browser = await chromium.launch({
-    headless: true
-  });
+  const browser = await chromium.launch({ headless: true });
 
   const page = await browser.newPage({
-    viewport: {
-      width: 390,
-      height: 2000
-    },
-    deviceScaleFactor: 3
+    viewport: { width, height: 2000 },
+    deviceScaleFactor: scale
   });
 
-  await page.goto(fileUrl, {
-    waitUntil: "networkidle"
-  });
+  await page.goto(fileUrl, { waitUntil: "networkidle" });
 
-  // 强制页面背景，避免圆角外侧透明显示成黑色
   await page.addStyleTag({
-    content: `
-      html, body {
-        background: #fff7e8 !important;
-      }
-    `
+    content: `html, body { background: ${background} !important; }`
   });
 
-  // 等待字体和图片加载
   await page.evaluate(async () => {
     if (document.fonts && document.fonts.ready) {
       await document.fonts.ready;
     }
-
     const images = Array.from(document.images);
     await Promise.all(
       images.map(img => {
@@ -64,16 +49,14 @@ async function main() {
     );
   });
 
-  const sections = page.locator("section");
+  const sections = page.locator("section.section");
   const count = await sections.count();
 
   console.log(`检测到 ${count} 个 section 模块`);
-  console.log(`输出文件夹：${outputDir}`);
 
   for (let i = 0; i < count; i++) {
     const section = sections.nth(i);
 
-    // 先滚动到当前 section
     await section.scrollIntoViewIfNeeded();
     await page.waitForTimeout(300);
 
@@ -84,21 +67,15 @@ async function main() {
       continue;
     }
 
-    // 左右留白、上方只留 2px（避免捕获上方模块的分割线）、下方多留白保证呼吸感
     const padX = 12;
     const padTop = -1;
     const padBottom = 20;
 
-    // 如果当前模块太高，就临时增大视口高度
     const neededHeight = Math.ceil(box.height + padTop + padBottom + 80);
     const currentViewport = page.viewportSize();
 
     if (currentViewport && neededHeight > currentViewport.height) {
-      await page.setViewportSize({
-        width: 390,
-        height: neededHeight
-      });
-
+      await page.setViewportSize({ width, height: neededHeight });
       await section.scrollIntoViewIfNeeded();
       await page.waitForTimeout(300);
       box = await section.boundingBox();
@@ -112,7 +89,7 @@ async function main() {
     const clip = {
       x: Math.max(Math.floor(box.x - padX), 0),
       y: Math.max(Math.floor(box.y - padTop), 0),
-      width: Math.ceil(Math.min(box.width + padX * 2, 390)),
+      width: Math.ceil(Math.min(box.width + padX * 2, width)),
       height: Math.ceil(box.height + padTop + padBottom)
     };
 
@@ -124,7 +101,7 @@ async function main() {
     await page.screenshot({
       path: outputPath,
       type: "png",
-      clip: clip,
+      clip,
       omitBackground: false
     });
 
@@ -132,11 +109,59 @@ async function main() {
   }
 
   await browser.close();
-
-  console.log("全部模块已导出完成。");
+  return { count, outputDir };
 }
 
-main().catch(error => {
-  console.error("导出失败：", error);
-  process.exit(1);
-});
+function parseArgs(argv) {
+  const args = {};
+  for (let i = 2; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === "-i" || arg === "--input") {
+      args.inputPath = argv[++i];
+    } else if (arg === "-o" || arg === "--output") {
+      args.outputDir = argv[++i];
+    } else if (arg === "--width") {
+      args.width = parseInt(argv[++i], 10);
+    } else if (arg === "--scale") {
+      args.scale = parseInt(argv[++i], 10);
+    } else if (arg === "--background") {
+      args.background = argv[++i];
+    }
+  }
+  return args;
+}
+
+function printUsage() {
+  console.log([
+    "用法: node export-modules.js -i <html路径> -o <输出目录> [选项]",
+    "",
+    "必需:",
+    "  -i, --input <path>     HTML 文件路径",
+    "  -o, --output <dir>     输出目录",
+    "",
+    "可选:",
+    "  --width <px>           视口宽度，默认 390",
+    "  --scale <n>            设备缩放比，默认 3",
+    "  --background <color>   背景色，默认 #fff7e8"
+  ].join("\n"));
+}
+
+if (require.main === module) {
+  const args = parseArgs(process.argv);
+
+  if (!args.inputPath || !args.outputDir) {
+    printUsage();
+    process.exit(1);
+  }
+
+  exportSections(args)
+    .then(({ count }) => {
+      console.log(`全部完成：${count} 个 section 已导出到 ${args.outputDir}`);
+    })
+    .catch(error => {
+      console.error("导出失败：", error);
+      process.exit(1);
+    });
+}
+
+module.exports = { exportSections };
