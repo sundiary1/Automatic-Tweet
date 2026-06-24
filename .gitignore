@@ -1,4 +1,5 @@
 projects/
 node_modules/
+.worktrees/
 .Rhistory
 *.log
