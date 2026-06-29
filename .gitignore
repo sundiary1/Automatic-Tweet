@@ -1,5 +1,23 @@
+# Generated projects and source papers
 projects/
+*.pdf
+
+# Dependencies and test output
 node_modules/
+playwright-report/
+test-results/
+
+# Local tools and workspaces
+.claude/
 .worktrees/
-.Rhistory
+.vscode/
+.idea/
+
+# Logs and local runtime files
 *.log
+.Rhistory
+
+# Operating system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
